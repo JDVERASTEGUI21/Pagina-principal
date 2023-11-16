@@ -1,78 +1,117 @@
-<?
-include("./bd.php");
+<?php
+  session_start();
+
+  if ($_POST) {
+    include("./bd.php");
+
+    $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : "";
+    $contraseña = (isset($_POST['contraseña'])) ? $_POST['contraseña'] : "";
+
+    if (empty($usuario) || empty($contraseña)) {
+        echo '<div class="alert alert-warning" role="alert">Por favor, completa todos los campos.</div>';
+    } else {
+        $sentencia = $conexion->prepare("SELECT *, count(*) as n_usuarios FROM `tb_usuarios` 
+        WHERE correo=:correo AND pass=:pass");
+        $sentencia->bindParam(":correo", $usuario);
+        $sentencia->bindParam(":pass", $contraseña);
+        $sentencia->execute();
+        $usuario_encontrado = $sentencia->fetch(PDO::FETCH_LAZY);
+
+        if ($usuario_encontrado['n_usuarios'] > 0) {
+            $mensaje="El usuario existe";
+                $_SESSION['correo'] = $usuario_encontrado['correo'];
+                $_SESSION['logueado'] = true;
+                header("Location:index.php");
+                exit();
+            } else {
+                echo '<div class="alert alert-danger" role="alert">Error: La contraseña es incorrecta</div>';
+            }
+        } 
+  }
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <title>Login</title>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Log in</title>
 
-  <!-- Bootstrap CSS v5.2.1 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../admin/libros/plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="../admin/libros/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../admin/libros/dist/css/adminlte.min.css">
 
-</head>
+  </head>
 
-<body>
-  <header>
-    <!-- place navbar here -->
-  </header>
-  <main>
-    <div class="container">
-      <div class="row">
-        <div class="col-4">
-         
+  <body class="hold-transition login-page">
+      <div class="login-box">
+      <!-- /.login-logo -->
+      <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+          <a class="h1"><b>Administrador del semillero </b></a>
         </div>
-        <div class="col-4">
-          
-        <div class="card">
-          <div class="card-header">
-            Login
-          </div>
-          <div class="card-body">
-            <form action="" method="post">
+        <div class="card-body">
+          <p class="login-box-msg">INICIO DE SESION</p>
 
-            <div class="mb-3">
-              <label for="usuario" class="form-label">USUARIO</label>
-              <input type="text"
-                class="form-control" name="usuario" id="usuario" aria-describedby="helpId" placeholder="">
+          <form action="" method="post">
+            <div class="input-group mb-3">
+            <input id="usuario" type="email" name="usuario" class="form-control" placeholder="CORREO ELECTRONICO" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
             </div>
-            </form>
+            <div class="input-group mb-3">
+            <input for="contraseña" type="password" name="contraseña" id="pass" class="form-control" placeholder="CONTRASEÑA" />
 
-            <div class="mb-3">
-              <label for="contraseña" class="form-label">CONTRASEÑA</label>
-              <input type="password"
-                class="form-control" name="contraseña" id="contraseña" aria-describedby="helpId" placeholder="">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
             </div>
-          
-            <a name="" id="" class="btn btn-primary" href="index.php" role="button">ENTRAR</a>
-          
-          </div>
-          <div class="card-footer text-muted">
+            <div class="row">
+              <div class="col-8">
+                <div class="icheck-primary">
+                  <input type="checkbox" id="remember" />
+                  <label for="remember">Recordarme</label>
+                </div>
+              </div>
+              <!-- /.col -->
+              <div class="col-4">
+              <input type="hidden" name="enviar" id="enviar" class="form-control" value="si">
+              <button type="submit" class="btn btn-primary btn-block">
+                INICIAR
+                </button>
+              </div>
+              <!-- /.col -->
+            </div>
             
-          </div>
+            
+          </form>
+
+          <p class="mb-1">
+            <a href="cambio_contraseña.php">OLVIDASTE LA CONTRASEÑA</a>
+          </p>
+          
         </div>
-        </div>
-        
+        <!-- /.card-body -->
       </div>
+      <!-- /.card -->
     </div>
-
-  </main>
-  <footer>
-    <!-- place footer here -->
-  </footer>
-  <!-- Bootstrap JavaScript Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-  </script>
-</body>
-
+    <!-- /.login-box -->
+      <!-- LOGIN -->
+     <!-- jQuery -->
+     <script src="../admin/libros/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../admin/libros/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../admin/libros/dist/js/adminlte.min.js"></script>
+  </body>
 </html>

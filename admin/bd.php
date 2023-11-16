@@ -8,9 +8,8 @@ $contraseña="";
 try{
 
   $conexion=new PDO("mysql:host=$servidor; dbname=$baseDeDatos", $usuario, $contraseña); 
-  echo "Conexión realizada...";
 
-}catch(Exception $error) { echo $error->getMessage();
+}catch(Exception $error) {print "¡Error BD!: " . $error->getMessage();
 
 }
 
