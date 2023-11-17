@@ -340,7 +340,7 @@ $lista_configuraciones=$sentencia->fetchAll(PDO::FETCH_ASSOC);
          <div class="container">
           <div class="text-center">
             <h2 class="section-heading text-uppercase"><?php echo $lista_configuraciones[14]['valor'];?></h2>
-            <h3 class="section-subheading text-muted"><?php echo $lista_configuraciones[15]['valor'];?></h3>
+            <h3 class="section-subheading"><?php echo $lista_configuraciones[15]['valor'];?></h3>
           </div>
             
           <div class="row">
@@ -348,11 +348,12 @@ $lista_configuraciones=$sentencia->fetchAll(PDO::FETCH_ASSOC);
             <div class="col-lg-4">
               <div class="team-member">
                <img class="mx-auto rounded-circle" src="assets/img/Estudiantes/<?php echo $registros['Imagen'];?>" alt="imagen"></a>
-               <h4 class="mt-3 mb-3"><?php echo $registros['Nombre'];?></h4>
+               <h4 class="mt-3 mb-3" style="color: yellow;"><?php echo $registros['Nombre']; ?></h4>
                <h5 class="text-body-secondary"><?php echo $registros['Programa'];?></h5>
                <p class="text-body-secondary"><?php echo $registros['Semestre'];?></p>
                <p class="text-body-secondary"><?php echo $registros['Descripcion'];?></p>
-               <a class="btn-success" href="grupo.php">RECTORIA CUNDINAMARCA</a>
+               <p>Centro regional GIRARDOT</p>
+               
             </div>
           </div>
          <?php } ?>
@@ -419,10 +420,10 @@ $lista_configuraciones=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row align-items-center">
                     <div class="col-lg-9 text-lg-start"><b>Satélites Sociales - Información de contacto: info@satelites.com | &copy; 2023 AdminJDVA - JFPM - RGM</b></div>
                     <div class="col-lg-3 text-lg-end">
-                      <a class="btn btn-custom-yellow btn-social mx-3" href="<?php echo $lista_configuraciones[18]['valor'];?>" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                      <a class="btn btn-custom-blue btn-social mx-3" href="<?php echo $lista_configuraciones[19]['valor'];?>" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                      <a class="btn btn-custom-green btn-social mx-3" href="<?php echo $lista_configuraciones[20]['valor'];?>" aria-label="LinkedIn"><i class="fab fa-instagram"></i></a>
-                      <a class="btn btn-custom-red btn-social mx-3" href="https://www.youtube.com/@semillerosatelitessociales5011"><i class="fab fa-youtube"></i></a>
+                      <a class="btn btn-dark btn-social mx-3" href="<?php echo $lista_configuraciones[18]['valor'];?>" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                      <a class="btn btn-dark btn-social mx-3" href="<?php echo $lista_configuraciones[19]['valor'];?>" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                      <a class="btn btn-dark btn-social mx-3" href="<?php echo $lista_configuraciones[20]['valor'];?>" aria-label="LinkedIn"><i class="fab fa-instagram"></i></a>
+                      <a class="btn btn-dark btn-social mx-3" href="https://www.youtube.com/@semillerosatelitessociales5011"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
