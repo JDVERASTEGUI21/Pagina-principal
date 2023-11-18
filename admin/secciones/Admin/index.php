@@ -60,9 +60,13 @@ include ("../../templates/header.php");
                     <td><?php echo str_repeat('*', strlen($usuarios['pass'])); ?></td>
 
                     <td>
-                        <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $usuarios['ID']; ?>" role="button">Editar</a>
-                        |
-                        <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $usuarios['ID']; ?>" role="button">Eliminar</a>
+                     <a class="btn btn-sm btn-primary" href="editar.php?txtID=<?php echo $usuarios['ID']; ?>">
+                      <i class="fa-solid fa-pencil"></i>
+                     </a>
+
+                     <a class="btn btn-sm btn-danger" href="index.php?txtID=<?php echo $usuarios['ID']; ?>">
+                      <i class="fa-solid fa-trash-can"></i>
+                     </a>
                     </td>
                     
                 </tr>

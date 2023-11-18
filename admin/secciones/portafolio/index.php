@@ -29,55 +29,54 @@ $lista_portafolio=$sentencia->fetchAll(PDO::FETCH_ASSOC);
 include ("../../templates/header.php"); 
 ?>
 
- <div class="card">
+<div class="card">
     <div class="card-header">
-     <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Agregar registro</a>
+        <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Agregar registro</a>
     </div>
     <div class="card-body">
-
-     <div class="table-responsive-sm">
-       <table id="tablas" class="table table-striped" style="width: 100%">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">TITULO</th>
-                    <th scope="col">SUBTITULO</th>
-                    <th scope="col">IMAGEN</th>
-                    <th scope="col">DESCRIPCION</th>
-                    <th scope="col">CLIENTE</th>
-                    <th scope="col">CATEGORIA</th>
-                    <th scope="col">URL</th>
-                    <th scope="col">ACCIONES</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($lista_portafolio as $portafolio){?>
-                  <tr class="">
-                    <td scope="col"><?php echo $portafolio['ID'];?></td>
-                    <td scope="col"><?php echo $portafolio['titulo'];?></td>
-                    <td scope="col"><?php echo $portafolio['subtitulo'];?></td>
-                    <td scope="col">
-                        <img width="60" src="../../../assets/img/portfolio/<?php echo $portafolio['imagen'];?>"/>
-                    </td>
-                    <td scope="col"><?php echo $portafolio['descripcion'];?></td>
-                    <td scope="col"><?php echo $portafolio['cliente'];?></td>
-                    <td scope="col"><?php echo $portafolio['categoria'];?></td>
-                    <td scope="col"><?php echo $portafolio['url'];?></td>
-                    <td>
-                        <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $portafolio['ID']; ?>" role="button">Editar</a>
-                        |
-                        <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $portafolio['ID']; ?>" role="button">Eliminar</a>
-                    </td>
-                    
-                  </tr>
-                <?php }?>
-                
-            </tbody>
-        </table>
-     </div>
-    
+        <div class="table-responsive-sm">
+            <table id="tablas" class="table table-striped" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>TITULO</th>
+                        <th>SUBTITULO</th>
+                        <th>IMAGEN</th>
+                        <th>DESCRIPCION</th>
+                        <th>CLIENTE</th>
+                        <th>CATEGORIA</th>
+                        <th>URL</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($lista_portafolio as $portafolio) : ?>
+                        <tr>
+                            <td><?php echo $portafolio['ID']; ?></td>
+                            <td><?php echo $portafolio['titulo']; ?></td>
+                            <td><?php echo $portafolio['subtitulo']; ?></td>
+                            <td>
+                                <img width="60" src="../../../assets/img/portfolio/<?php echo $portafolio['imagen']; ?>" alt="Imagen">
+                            </td>
+                            <td><?php echo $portafolio['descripcion']; ?></td>
+                            <td><?php echo $portafolio['cliente']; ?></td>
+                            <td><?php echo $portafolio['categoria']; ?></td>
+                            <td><?php echo $portafolio['url']; ?></td>
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="editar.php?txtID=<?php echo $portafolio['ID']; ?>">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger" href="index.php?txtID=<?php echo $portafolio['ID']; ?>">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
-    
- </div>
+</div>
+
 
 <?php include ("../../templates/footer.php"); ?>

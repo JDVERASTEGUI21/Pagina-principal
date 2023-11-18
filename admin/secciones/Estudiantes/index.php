@@ -64,12 +64,79 @@
                     <td scope="col">
                         <img width="60" src="../../../assets/img/Estudiantes/<?php echo $estudiantes['Imagen']; ?>"/>
                     </td>
-                    <td scope="col"><?php echo $estudiantes['Estado'];?></td>
                     
+                    <!-- Dentro de la etiqueta <tbody>, reemplaza el <td> existente para 'Estado' con el siguiente código: -->
+                    <td scope="col" id="estado_<?php echo $estudiantes['ID']; ?>">
+    <?php if ($estudiantes['Estado'] == 1): ?>
+        <button class="btn btn-success" onclick="cambiarEstado(<?php echo $estudiantes['ID']; ?>, 0)">Activo</button>
+    <?php else: ?>
+        <button class="btn btn-danger" onclick="cambiarEstado(<?php echo $estudiantes['ID']; ?>, 1)">Inactivo</button>
+    <?php endif; ?>
+</td>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    function cambiarEstado(txtID, nuevoEstado) {
+        if (confirm('¿Seguro que desea cambiar el estado?')) {
+            $.ajax({
+                type: 'POST',
+                url: 'index.php',
+                data: { txtID: txtID, nuevoEstado: nuevoEstado },
+                success: function(response) {
+                    // Actualizar el texto y estilo del botón después de la actualización exitosa
+                    $('#estado_' + txtID);
+                    // Considera actualizar solo la parte necesaria en lugar de recargar toda la página
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al cambiar el estado:', status, error);
+                    alert('Error al cambiar el estado');
+                }
+                
+            });
+        }
+    }
+</script>
+
+<?php
+
+if (isset($_POST['txtID']) && isset($_POST['nuevoEstado'])) {
+    $txtID = $_POST['txtID'];
+    $nuevoEstado = $_POST['nuevoEstado'];
+
+    // Verifica si $conexion está definida antes de usarla
+    if (isset($conexion)) {
+        try {
+            // Actualizar el Estado en la base de datos
+            $sentencia = $conexion->prepare("UPDATE tb_estudiantes SET Estado = :nuevoEstado WHERE id = :id");
+            $sentencia->bindParam(":nuevoEstado", $nuevoEstado, PDO::PARAM_INT); // Asegúrate de que $nuevoEstado sea un entero
+            $sentencia->bindParam(":id", $txtID, PDO::PARAM_INT); // Asegúrate de que $txtID sea un entero
+            $sentencia->execute();
+
+            // Devolver el nuevo botón actualizado
+            echo ($nuevoEstado == 1) ? '<button class="btn btn-success" onclick="cambiarEstado('.$txtID.', 0)">Activo</button>' : '<button class="btn btn-danger" onclick="cambiarEstado('.$txtID.', 1)">Inactivo</button>';
+        } catch (PDOException $e) {
+            // Manejar errores de la base de datos
+            echo "Error de la base de datos: " . $e->getMessage();
+        }
+    } else {
+        echo "No se ha establecido la conexión a la base de datos.";
+    }
+} else {
+    echo "Parámetros inválidos";
+}
+?>
+
+
                     <td>
-                        <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $estudiantes['ID']; ?>" role="button">Editar</a>
-                        |
-                        <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $estudiantes['ID']; ?>" role="button">Eliminar</a>
+                     <a class="btn btn-sm btn-primary" href="editar.php?txtID=<?php echo $estudiantes['ID']; ?>">
+                      <i class="fa-solid fa-pencil"></i>
+                     </a>
+
+                     <a class="btn btn-sm btn-danger" href="index.php?txtID=<?php echo $estudiantes['ID']; ?>">
+                      <i class="fa-solid fa-trash-can"></i>
+                     </a>
                     </td>
                     
                   </tr>

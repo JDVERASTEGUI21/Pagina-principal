@@ -44,9 +44,13 @@ include ("../../templates/header.php"); ?>
                     <td><?php echo $registros['titulo'];?></td>
                     <td><?php echo $registros['descripcion'];?></td>
                     <td>
-                        <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registros['ID']; ?>" role="button">Editar</a>
-                        |
-                        <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $registros['ID']; ?>" role="button">Eliminar</a>
+                     <a class="btn btn-sm btn-primary" href="editar.php?txtID=<?php echo $registros['ID']; ?>">
+                      <i class="fa-solid fa-pencil"></i>
+                     </a>
+
+                     <a class="btn btn-sm btn-danger" href="index.php?txtID=<?php echo $registros['ID']; ?>">
+                      <i class="fa-solid fa-trash-can"></i>
+                     </a>
                     </td>
                     
                 </tr>

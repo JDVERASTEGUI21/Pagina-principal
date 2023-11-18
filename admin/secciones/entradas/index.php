@@ -58,10 +58,13 @@ if (isset ($_GET['txtID'])){
                     <td><?php echo $entradas['descripcion'];?></td>
                     <td><img width="60" src="../../../assets/img/about/<?php echo $entradas['imagen'];?>"/></td>
                     <td>
-                     <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $entradas['ID']; ?>" role="button">Editar</a>
-                     |
-                     <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $entradas['ID']; ?>" role="button">Eliminar</a>
-                    
+                     <a class="btn btn-sm btn-primary" href="editar.php?txtID=<?php echo $entradas['ID']; ?>">
+                      <i class="fa-solid fa-pencil"></i>
+                     </a>
+
+                     <a class="btn btn-sm btn-danger" href="index.php?txtID=<?php echo $entradas['ID']; ?>">
+                      <i class="fa-solid fa-trash-can"></i>
+                     </a>
                     </td>
                 </tr>
               <?php }?>
